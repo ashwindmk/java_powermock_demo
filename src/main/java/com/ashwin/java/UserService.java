@@ -79,4 +79,12 @@ public class UserService {
         }
         return false;
     }
+
+    public static String getFullName(String first, String last) {
+        return copy(first) + " " + copy(last);
+    }
+
+    private static String copy(String x) {
+        return new String(x);
+    }
 }

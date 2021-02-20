@@ -17,6 +17,7 @@ import static org.junit.Assert.assertNotEquals;
 public class UserUtilTest {
     @Before
     public void setUp() {
+        System.out.println("Before");
     }
 
     @Mock
@@ -57,6 +58,24 @@ public class UserUtilTest {
 
         birthyear = 1994;
         assertEquals(currentYear - birthyear, userUtil.getAge(birthyear));
+    }
+
+    // Mocking private static method
+    @Test
+    public void testFullName() {
+        String first = "John";
+        String last = "Doe";
+        PowerMockito.spy(UserService.class);
+        try {
+            PowerMockito.when(UserService.class, "copy", first).thenReturn(first);
+            PowerMockito.when(UserService.class, "copy", last).thenReturn(last);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String expected = first + " " + last;
+        String actual = UserService.getFullName(first, last);
+        assertEquals(expected, actual);
     }
 
     // Mocking final method
